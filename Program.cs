@@ -1,0 +1,10 @@
+﻿bool isRun = true;
+int playerCoins = 2;
+float playerSpeed = 8.8f;
+uint playerId = 1;
+short difficult = 1;
+double playerX = 0.0;
+long numberOfStars = long.MaxValue;
+string startMessage = "Привет, игрок!";
+char playerSymbol = '0';
+byte playerColor = 255;
