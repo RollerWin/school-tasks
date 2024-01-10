@@ -1,10 +1,12 @@
-﻿bool isRun = true;
-int playerCoins = 2;
-float playerSpeed = 8.8f;
-uint playerId = 1;
-short difficult = 1;
-double playerX = 0.0;
-long numberOfStars = long.MaxValue;
-string startMessage = "Привет, игрок!";
-char playerSymbol = '0';
-byte playerColor = 255;
+﻿string userName;
+int userAge;
+string userZodiacSign;
+
+Console.WriteLine("Как вас зовут?");
+userName = Console.ReadLine();
+Console.WriteLine("Сколько Вам лет?");
+userAge = Convert.ToInt32(Console.ReadLine());
+Console.WriteLine("Какой у Вас знак зодиака?");
+userZodiacSign = Console.ReadLine();
+
+Console.WriteLine($"Всё ясно!\nВас зовут {userName}, Вам {userAge} лет и вы по гороскопу {userZodiacSign}");
