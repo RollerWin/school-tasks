@@ -1,8 +1,17 @@
-﻿int firstNumber = 5;
-int lastNumber = 96;
-int iterationStep = 7;
+﻿Random random = new Random();
+int number = random.Next(101);
 
-for(int i = firstNumber; i <= lastNumber; i+= iterationStep) 
+int firstMultiple = 3;
+int secondMultiple = 5;
+
+int sumOfMultiples = 0;
+
+for(int i = 0; i <= number; i++) 
 {
-    Console.Write(i + " ");
+    if(i % firstMultiple == 0 || i % secondMultiple == 0)
+    {
+        sumOfMultiples += i;
+    }
 }
+
+Console.WriteLine($"Сумма всех положительных чисел меньше {number}, которые кратные {firstMultiple} или {secondMultiple}: {sumOfMultiples}");
