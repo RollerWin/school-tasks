@@ -1,7 +1,11 @@
-﻿int picturesInRow = 3;
-int numberOfPictures = 52;
+﻿string name = "Petrov";
+string surname = "Vasiliy";
 
-int numberOfRows = numberOfPictures / picturesInRow;
-int picturesOverflow = numberOfPictures % picturesInRow;
+Console.WriteLine($"Ваше имя: {name}\nВаша фамилия: {surname}");
+Console.WriteLine("Хм... Что-то не так...");
 
-Console.WriteLine($"Из {numberOfPictures} картин получилось {numberOfRows} рядов.\nСверх меры оказалось {picturesOverflow} картин");
+string wordBuffer = name;
+name = surname;
+surname = wordBuffer;
+
+Console.WriteLine($"Теперь должно быть всё верно..\nВаше имя: {name}\nВаша фамилия: {surname}");
