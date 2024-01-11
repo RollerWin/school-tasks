@@ -1,13 +1,9 @@
-﻿string userInput;
-int userRepetitions;
+﻿string endWord = "exit";
 
-Console.Write("Введите фразу, которая должна повторяться: ");
-userInput = Console.ReadLine();
+string userInput = Console.ReadLine();
 
-Console.Write("Введите число повторений: ");
-userRepetitions = Convert.ToInt32(Console.ReadLine());
-
-for(int i = 0; i < userRepetitions; i++) 
+while(userInput != endWord)
 {
     Console.WriteLine(userInput);
+    userInput = Console.ReadLine();
 }
