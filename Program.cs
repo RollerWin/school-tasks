@@ -1,9 +1,8 @@
-﻿string endWord = "exit";
+﻿int firstNumber = 5;
+int lastNumber = 96;
+int iterationStep = 7;
 
-string userInput = Console.ReadLine();
-
-while(userInput != endWord)
+for(int i = firstNumber; i <= lastNumber; i+= iterationStep) 
 {
-    Console.WriteLine(userInput);
-    userInput = Console.ReadLine();
+    Console.Write(i + " ");
 }
