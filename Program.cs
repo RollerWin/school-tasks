@@ -1,21 +1,12 @@
-﻿int playerCoins;
-int playerBag = 0;
-int numberOfDiamonds = 20;
-int diamondPrice = 5;
+﻿int peopleInLine;
+int timeOfReceipt = 10;
+int minutesInHour = 60;
 
-Console.Write("Укажите ваше количество монет: ");
-playerCoins = Convert.ToInt32(Console.ReadLine());
+Console.Write("Сколько бабушек Вы видите в очереди?");
+peopleInLine = Convert.ToInt32(Console.ReadLine());
 
-Console.Write($"У вас {playerCoins} монет!\nНа рынке {numberOfDiamonds} алмазов\nСколько алмазов желаете приобрести?\t");
-int diamondsToBuy = Convert.ToInt32(Console.ReadLine());
+int totalTime = timeOfReceipt * peopleInLine;
+int hoursOfWaiting = totalTime / minutesInHour;
+int minutesOfWaiting = totalTime % minutesInHour;
 
-bool canBuyDiamonds = numberOfDiamonds >= diamondsToBuy;
-
-int numberOfPurchasedDiamonds = diamondsToBuy * Convert.ToInt32(canBuyDiamonds);
-
-int totalCost = diamondPrice * numberOfPurchasedDiamonds;
-playerCoins -= totalCost;
-numberOfDiamonds -= numberOfPurchasedDiamonds;
-playerBag += numberOfPurchasedDiamonds;
-
-Console.WriteLine($"Сделка состоялась!\nТеперь у Вас {playerCoins} монет\nНа рынке {numberOfDiamonds} алмазов\nА у вас теперь {playerBag} алмазов!");
+Console.WriteLine($"Вам осталось ждать {hoursOfWaiting} часов и {minutesOfWaiting} минут");
