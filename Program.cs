@@ -1,12 +1,13 @@
-﻿int peopleInLine;
-int timeOfReceiptInMinutes = 10;
-int minutesInHour = 60;
+﻿string userInput;
+int userRepetitions;
 
-Console.Write("Сколько бабушек Вы видите в очереди?");
-peopleInLine = Convert.ToInt32(Console.ReadLine());
+Console.Write("Введите фразу, которая должна повторяться: ");
+userInput = Console.ReadLine();
 
-int totalTime = timeOfReceiptInMinutes * peopleInLine;
-int hoursOfWaiting = totalTime / minutesInHour;
-int minutesOfWaiting = totalTime % minutesInHour;
+Console.Write("Введите число повторений: ");
+userRepetitions = Convert.ToInt32(Console.ReadLine());
 
-Console.WriteLine($"Вам осталось ждать {hoursOfWaiting} часов и {minutesOfWaiting} минут");
+for(int i = 0; i < userRepetitions; i++) 
+{
+    Console.WriteLine(userInput);
+}
