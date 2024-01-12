@@ -1,154 +1,145 @@
-﻿const string CommandExit = "exit";
+﻿const string ExitCommand = "exit";
+const string ShowInfoCommand = "show info";
+const string LogInCommand = "login";
+const string RegisterCommand = "register";
+const string ChangeConsoleColorCommand = "change color";
+const string ShowInstructionsCommand ="help";
 
-const string SelectRubCommand = "1";
-const string SelectUsdCommand = "2";
-const string SelectEurCommand = "3";
+const string SelectWhiteConsoleCommand = "white";
+const string SelectGreenConsoleCommand = "green";
+const string SelectBlueConsoleCommand = "blue";
+const string SelectRedConsoleCommand = "red";
+const string SelectYellowConsoleCommand = "yellow";
 
-const int ConvertRubToUsdCommand = 1;
-const int ConvertRubToEurCommand = 2;
+string userName = "";
+string password = "";
 
-const int ConvertUsdToRubCommand = 1;
-const int ConvertUsdToEurCommand = 2;
+string currentUserName = "";
+string currentPassword = "";
 
-const int ConvertEurToRubCommand = 1;
-const int ConvertEurToUsdCommand = 2;
-
-double usdToRub = 89.90;
-double rubToUsd = 0.011;
-double eurToRub = 97.08;
-double rubToEur = 0.01;
-double eurToUsd = 0.91;
-double usdToEur = 1.10;
-
-double userRubles;
-double userDollars;
-double userEuros;
-double currencyForExchange;
-
+string userInput;
 bool isRun = true;
+bool isAuthorize = false;
 
-Console.Write("Введите, сколько у вас рублей: ");
-userRubles = Convert.ToDouble(Console.ReadLine());
-Console.Write("Введите, сколько у вас долларов: ");
-userDollars = Convert.ToDouble(Console.ReadLine());
-Console.Write("Введите, сколько у вас евро: ");
-userEuros = Convert.ToDouble(Console.ReadLine());
-Console.Clear();
 
 while(isRun)
 {
-    Console.WriteLine($"У Вас\n{userRubles} рублей\n{userDollars} долларов\n{userEuros} евро");
-    Console.WriteLine($"Выберите валюту, которую хотите обменять:\n{SelectRubCommand} - выбрать рубли\n{SelectUsdCommand} - выбрать доллары\n{SelectEurCommand} - выбрать евро");
+    Console.WriteLine($"Добро пожаловать в консоль!\nДля помощи по командам напиши {ShowInstructionsCommand}");
 
-    switch(Console.ReadLine())
+    userInput = Console.ReadLine();
+    Console.Clear();
+
+    switch(userInput)
     {
-        case SelectRubCommand:
-            Console.WriteLine($"Выберите, на какую валюту вы хотите обменять:\n{ConvertRubToUsdCommand} - обменять на доллары\n{ConvertRubToEurCommand} - обменять на евро");
+        case ShowInstructionsCommand:
+            Console.WriteLine($"Команды:\n{ShowInfoCommand} - показать информацию о пользователе\n{LogInCommand} - авторизация\n{RegisterCommand} - регистрация\n{ChangeConsoleColorCommand} - изменить цвет консоли\n{ShowInstructionsCommand} - список команд\n{ExitCommand} - выход");
+        break;
 
-            switch(Convert.ToInt32(Console.ReadLine()))
+        case ChangeConsoleColorCommand:
+            if(isAuthorize)
             {
-                case ConvertRubToUsdCommand:
-                    Console.Write("Введите число рублей, которое хотите обменять: ");
-                    currencyForExchange = Convert.ToDouble(Console.ReadLine());
+                Console.WriteLine("Выберите, в какой цвет хотите окрасить консоль:");
+                Console.WriteLine($"{SelectWhiteConsoleCommand} - белый\n{SelectGreenConsoleCommand} - зелёный\n{SelectBlueConsoleCommand} - синий\n{SelectRedConsoleCommand} - красный\n{SelectYellowConsoleCommand} - жёлтый");
 
-                    if(currencyForExchange <= userRubles) 
-                    {
-                        userRubles -= currencyForExchange;
-                        userDollars += currencyForExchange * rubToUsd;
-                    }
-                break;
+                switch(Console.ReadLine())
+                {
+                    case SelectWhiteConsoleCommand:
+                        Console.ForegroundColor = ConsoleColor.White;
+                    break;
 
-                case ConvertRubToEurCommand:
-                    Console.Write("Введите число рублей, которое хотите обменять: ");
-                    currencyForExchange = Convert.ToDouble(Console.ReadLine());
+                    case SelectGreenConsoleCommand:
+                        Console.ForegroundColor = ConsoleColor.Green;
+                    break;
 
-                    if(currencyForExchange <= userRubles) 
-                    {
-                        userRubles -= currencyForExchange;
-                        userEuros += currencyForExchange * rubToEur;
-                    }
-                break;
+                    case SelectBlueConsoleCommand:
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                    break;
 
-                default:
-                    Console.WriteLine("Увы, такой команды нет! попробуйте с самого начала!");
-                break;
+                    case SelectRedConsoleCommand:
+                        Console.ForegroundColor = ConsoleColor.Red;
+                    break;
+
+                    case SelectYellowConsoleCommand:
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                    break;
+
+                    default:
+                        Console.WriteLine("Такой команды нет!");
+                    break;
+                }
+            }
+            else 
+            {
+                Console.WriteLine("Вы не авторизованы!");
             }
         break;
 
-        case SelectUsdCommand:
-            Console.WriteLine($"Выберите, на какую валюту вы хотите обменять:\n{ConvertUsdToRubCommand} - обменять на рубли\n{ConvertUsdToEurCommand} - обменять на евро");
+        case RegisterCommand:
+            Console.Write("Введите своё имя: ");
+            userName = Console.ReadLine();
+            Console.Write("Введите свой пароль: ");
+            password = Console.ReadLine();
+            Console.Write("Повторите свой пароль: ");
 
-            switch(Convert.ToInt32(Console.ReadLine()))
+            if(Console.ReadLine() == password)
             {
-                case ConvertRubToUsdCommand:
-                    Console.Write("Введите число долларов, которое хотите обменять: ");
-                    currencyForExchange = Convert.ToDouble(Console.ReadLine());
-
-                    if(currencyForExchange <= userDollars) 
-                    {
-                        userDollars -= currencyForExchange;
-                        userRubles += currencyForExchange * usdToRub;
-                    }
-                break;
-
-                case ConvertRubToEurCommand:
-                    Console.Write("Введите число долларов, которое хотите обменять: ");
-                    currencyForExchange = Convert.ToDouble(Console.ReadLine());
-
-                    if(currencyForExchange <= userDollars) 
-                    {
-                        userDollars -= currencyForExchange;
-                        userEuros += currencyForExchange * usdToEur;
-                    }
-                break;
-
-                default:
-                    Console.WriteLine("Увы, такой команды нет! попробуйте с самого начала!");
-                break;
+                Console.WriteLine("Пользователь зарегистрирован!");
+            }     
+            else
+            {
+                Console.WriteLine("Регистрация провалена!");
+                userName = "";
+                password = "";
             }
         break;
 
-        case SelectEurCommand:
-            Console.WriteLine($"Выберите, на какую валюту вы хотите обменять:\n{ConvertEurToRubCommand} - обменять на рубли\n{ConvertEurToUsdCommand} - обменять на доллары");
-
-            switch(Convert.ToInt32(Console.ReadLine()))
+        case LogInCommand:
+            if(userName != "" && password != "")
             {
-                case ConvertRubToUsdCommand:
-                    Console.Write("Введите число евро, которое хотите обменять: ");
-                    currencyForExchange = Convert.ToDouble(Console.ReadLine());
-
-                    if(currencyForExchange <= userEuros) 
-                    {
-                        userEuros -= currencyForExchange;
-                        userRubles += currencyForExchange * eurToRub;
-                    }
-                break;
-
-                case ConvertRubToEurCommand:
-                    Console.Write("Введите число евро, которое хотите обменять: ");
-                    currencyForExchange = Convert.ToDouble(Console.ReadLine());
-
-                    if(currencyForExchange <= userEuros) 
-                    {
-                        userEuros -= currencyForExchange;
-                        userDollars += currencyForExchange * eurToUsd;
-                    }
-                break;
-
-                default:
-                    Console.WriteLine("Увы, такой команды нет! попробуйте с самого начала!");
-                break;
+                Console.Write("Введите своё имя: ");
+                currentUserName = Console.ReadLine();
+                Console.Write("Введите свой пароль: ");
+                currentPassword = Console.ReadLine();
+            
+                if(currentUserName == userName && currentPassword == password && userName != "" && password != "")
+                {
+                    Console.WriteLine("Вы успешно авторизовались!");
+                    isAuthorize = true;
+                }
+                else
+                {
+                    Console.WriteLine("Ошибка! Неверный логин или пароль!");
+                    currentUserName = "";
+                    currentPassword = "";
+                }
+            }
+            else
+            {
+                Console.WriteLine("Вы даже не зарегистрированы!");
             }
         break;
 
-        case CommandExit:
+        case ShowInfoCommand:
+            if(isAuthorize)
+            {
+                Console.Clear();
+                Console.WriteLine($"Ваше имя: {currentUserName}\nВаш пароль: {currentPassword}");
+            }
+            else
+            {
+                Console.WriteLine("Вы не авторизованы!");
+            }
+        break;
+
+        case ExitCommand:
             isRun = false;
         break;
 
         default:
-            Console.WriteLine("Такой команды нет! Попробуйте снова!");
+            Console.WriteLine("Неизвестная команда! Попробуй ещё раз!");
         break;
     }
 
+    Console.ReadKey();
     Console.Clear();
 }
