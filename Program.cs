@@ -6,8 +6,9 @@ Console.Write("Введите своё имя:");
 userName = Console.ReadLine();
 Console.Write("Введите сивол для обводки: ");
 userBorderSymbol = Convert.ToChar(Console.ReadLine());
+int borderLength = 1 + userName.Length + 1;
 
-for(int i = 0; i <= userName.Length + 1; i++)
+for(int i = 0; i < borderLength; i++)
 {
     userBorder = string.Concat(userBorder, userBorderSymbol);
 }
