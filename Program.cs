@@ -1,26 +1,30 @@
-﻿string systemPassword = "qwerty";
-int numberOfAttempts = 3;
-string secretMessage = "aboba";
-string userInput;
+﻿int minValue = 1;
+int maxValue = 27;
 
-for(int i = numberOfAttempts - 1; i >= 0; i--)
+int minThreeDigitNumber = 100;
+int maxThreeDigitNumber = 999;
+
+int exploreNumber;
+int numberOfMultiplies = 0;
+
+Random random = new Random();
+int number = random.Next(minValue, maxValue + 1);
+
+Console.WriteLine($"Случайное число от {minValue} до {maxValue}: {number}");
+
+for(int i = minThreeDigitNumber; i <= maxThreeDigitNumber; i++)
 {
-    Console.Write("Введите пароль: ");
-    userInput = Console.ReadLine();
+    exploreNumber = i;
 
-    if(userInput == systemPassword)
+    while(exploreNumber > 0)
     {
-        Console.WriteLine($"Пароль верный!\nСекретное сообщение: {secretMessage}");
-        break;
-    }
-    else
-    {
-        Console.WriteLine($"Неверный пароль!\nУ вас осталось {i} попыток");
+        exploreNumber -= number;
     }
 
-    if(i == 0)
+    if(exploreNumber == 0)
     {
-        Console.WriteLine("Увы, количество попыток закончилось! Система выключается...");
+        numberOfMultiplies++;
     }
 }
 
+Console.WriteLine($"Количество чисел, кратных {number}: {numberOfMultiplies}");
