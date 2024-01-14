@@ -12,9 +12,12 @@ int number = random.Next(minValue, maxValue + 1);
 
 Console.WriteLine($"Случайное число от {minValue} до {maxValue}: {number}");
 
-for(int i = minThreeDigitNumber; i <= maxThreeDigitNumber; i++)
+int minMultipleNumber = minThreeDigitNumber;
+bool isFound = false;
+
+while(isFound == false)
 {
-    exploreNumber = i;
+    exploreNumber = minMultipleNumber;
 
     while(exploreNumber > 0)
     {
@@ -23,8 +26,17 @@ for(int i = minThreeDigitNumber; i <= maxThreeDigitNumber; i++)
 
     if(exploreNumber == 0)
     {
-        numberOfMultiplies++;
+        isFound = true;
     }
+    else
+    {
+        minMultipleNumber++;
+    }
+}
+
+for(int i = minMultipleNumber; i <= maxThreeDigitNumber; i += number)
+{
+    numberOfMultiplies++;
 }
 
 Console.WriteLine($"Количество чисел, кратных {number}: {numberOfMultiplies}");
