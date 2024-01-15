@@ -1,42 +1,14 @@
-﻿int minValue = 1;
-int maxValue = 27;
+﻿Random random = new Random();
+int maxValue = 100;
+int number = random.Next(maxValue + 1);
+int compareNumber = 1;
+int compareNumberBase = 2;
+int powerOfСompareNumber = 0;
 
-int minThreeDigitNumber = 100;
-int maxThreeDigitNumber = 999;
-
-int exploreNumber;
-int numberOfMultiplies = 0;
-
-Random random = new Random();
-int number = random.Next(minValue, maxValue + 1);
-
-Console.WriteLine($"Случайное число от {minValue} до {maxValue}: {number}");
-
-int minMultipleNumber = minThreeDigitNumber;
-bool isFound = false;
-
-while(isFound == false)
+while(compareNumber <= number)
 {
-    exploreNumber = minMultipleNumber;
-
-    while(exploreNumber > 0)
-    {
-        exploreNumber -= number;
-    }
-
-    if(exploreNumber == 0)
-    {
-        isFound = true;
-    }
-    else
-    {
-        minMultipleNumber++;
-    }
+    compareNumber *= compareNumberBase;
+    powerOfСompareNumber ++;
 }
 
-for(int i = minMultipleNumber; i <= maxThreeDigitNumber; i += number)
-{
-    numberOfMultiplies++;
-}
-
-Console.WriteLine($"Количество чисел, кратных {number}: {numberOfMultiplies}");
+Console.WriteLine($"Случайное число - {number}\nЧисло c основанием {compareNumberBase}, которое больше - {compareNumber}\nСтепень этого числа - {powerOfСompareNumber}");
