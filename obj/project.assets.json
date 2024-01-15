@@ -8,19 +8,19 @@
     "net7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\maryy\\.nuget\\packages\\": {}
+    "C:\\Users\\Ринат\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Хранилище для работы\\ЯЮниорНовый\\1.1variables\\1.1variables.csproj",
+      "projectUniqueName": "D:\\Soft\\учёба\\новыйЯЮниор\\school-tasks\\1.1variables.csproj",
       "projectName": "1.1variables",
-      "projectPath": "D:\\Хранилище для работы\\ЯЮниорНовый\\1.1variables\\1.1variables.csproj",
-      "packagesPath": "C:\\Users\\maryy\\.nuget\\packages\\",
-      "outputPath": "D:\\Хранилище для работы\\ЯЮниорНовый\\1.1variables\\obj\\",
+      "projectPath": "D:\\Soft\\учёба\\новыйЯЮниор\\school-tasks\\1.1variables.csproj",
+      "packagesPath": "C:\\Users\\Ринат\\.nuget\\packages\\",
+      "outputPath": "D:\\Soft\\учёба\\новыйЯЮниор\\school-tasks\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\maryy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Ринат\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -61,7 +61,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

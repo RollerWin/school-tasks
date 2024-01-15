@@ -4,7 +4,6 @@ int maxValue = 27;
 int minThreeDigitNumber = 100;
 int maxThreeDigitNumber = 999;
 
-int exploreNumber;
 int numberOfMultiplies = 0;
 
 Random random = new Random();
@@ -12,31 +11,13 @@ int number = random.Next(minValue, maxValue + 1);
 
 Console.WriteLine($"Случайное число от {minValue} до {maxValue}: {number}");
 
-int minMultipleNumber = minThreeDigitNumber;
-bool isFound = false;
-
-while(isFound == false)
+for(int i = number; i <= maxThreeDigitNumber; i+= number)
 {
-    exploreNumber = minMultipleNumber;
-
-    while(exploreNumber > 0)
+    if(i >= minThreeDigitNumber)
     {
-        exploreNumber -= number;
+        numberOfMultiplies++;
+        Console.WriteLine(i);
     }
-
-    if(exploreNumber == 0)
-    {
-        isFound = true;
-    }
-    else
-    {
-        minMultipleNumber++;
-    }
-}
-
-for(int i = minMultipleNumber; i <= maxThreeDigitNumber; i += number)
-{
-    numberOfMultiplies++;
 }
 
 Console.WriteLine($"Количество чисел, кратных {number}: {numberOfMultiplies}");

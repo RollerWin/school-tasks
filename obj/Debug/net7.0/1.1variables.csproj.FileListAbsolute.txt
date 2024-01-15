@@ -12,3 +12,17 @@ D:\Хранилище для работы\ЯЮниорНовый\1.1variables\ob
 D:\Хранилище для работы\ЯЮниорНовый\1.1variables\obj\Debug\net7.0\1.1variables.pdb
 D:\Хранилище для работы\ЯЮниорНовый\1.1variables\obj\Debug\net7.0\1.1variables.genruntimeconfig.cache
 D:\Хранилище для работы\ЯЮниорНовый\1.1variables\obj\Debug\net7.0\ref\1.1variables.dll
+D:\Soft\учёба\новыйЯЮниор\school-tasks\bin\Debug\net7.0\1.1variables.exe
+D:\Soft\учёба\новыйЯЮниор\school-tasks\bin\Debug\net7.0\1.1variables.deps.json
+D:\Soft\учёба\новыйЯЮниор\school-tasks\bin\Debug\net7.0\1.1variables.runtimeconfig.json
+D:\Soft\учёба\новыйЯЮниор\school-tasks\bin\Debug\net7.0\1.1variables.dll
+D:\Soft\учёба\новыйЯЮниор\school-tasks\bin\Debug\net7.0\1.1variables.pdb
+D:\Soft\учёба\новыйЯЮниор\school-tasks\obj\Debug\net7.0\1.1variables.GeneratedMSBuildEditorConfig.editorconfig
+D:\Soft\учёба\новыйЯЮниор\school-tasks\obj\Debug\net7.0\1.1variables.AssemblyInfoInputs.cache
+D:\Soft\учёба\новыйЯЮниор\school-tasks\obj\Debug\net7.0\1.1variables.AssemblyInfo.cs
+D:\Soft\учёба\новыйЯЮниор\school-tasks\obj\Debug\net7.0\1.1variables.csproj.CoreCompileInputs.cache
+D:\Soft\учёба\новыйЯЮниор\school-tasks\obj\Debug\net7.0\1.1variables.dll
+D:\Soft\учёба\новыйЯЮниор\school-tasks\obj\Debug\net7.0\refint\1.1variables.dll
+D:\Soft\учёба\новыйЯЮниор\school-tasks\obj\Debug\net7.0\1.1variables.pdb
+D:\Soft\учёба\новыйЯЮниор\school-tasks\obj\Debug\net7.0\1.1variables.genruntimeconfig.cache
+D:\Soft\учёба\новыйЯЮниор\school-tasks\obj\Debug\net7.0\ref\1.1variables.dll
