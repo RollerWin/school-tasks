@@ -1,14 +1,37 @@
-﻿Random random = new Random();
-int maxValue = 100;
-int number = random.Next(maxValue + 1);
-int compareNumber = 1;
-int compareNumberBase = 2;
-int powerOfСompareNumber = 0;
+﻿char openBracket = '(';
+char closeBracket = ')';
+int bracketCounter = 0;
 
-while(compareNumber <= number)
+string correctResultMessage = "Выражение верно!";
+string incorrectResultMessage = "Неверное выражение!";
+
+bool isCorrect = true;
+
+Console.Write("Введите скобочное выражение: ");
+string userInput = Console.ReadLine();
+
+foreach(var symbol in userInput)
 {
-    compareNumber *= compareNumberBase;
-    powerOfСompareNumber ++;
+    if(symbol == openBracket)
+    {
+        bracketCounter++;
+    }
+    else if(symbol == closeBracket)
+    {
+        bracketCounter--;
+    }
+    else
+    {
+        isCorrect = false;
+        break;
+    }
 }
 
-Console.WriteLine($"Случайное число - {number}\nЧисло c основанием {compareNumberBase}, которое больше - {compareNumber}\nСтепень этого числа - {powerOfСompareNumber}");
+if(bracketCounter == 0 && isCorrect == true)
+{
+    Console.WriteLine(correctResultMessage);
+}
+else
+{
+    Console.WriteLine(incorrectResultMessage);
+}
