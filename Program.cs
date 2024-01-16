@@ -1,23 +1,45 @@
-﻿int minValue = 1;
-int maxValue = 27;
+﻿char openBracket = '(';
+char closeBracket = ')';
+int bracketCounter = 0;
+int maxBracketDepth = 0;
 
-int minThreeDigitNumber = 100;
-int maxThreeDigitNumber = 999;
 
-int numberOfMultiplies = 0;
+string correctResultMessage = "Выражение верно!";
+string incorrectResultMessage = "Неверное выражение!";
 
-Random random = new Random();
-int number = random.Next(minValue, maxValue + 1);
+bool isCorrect = true;
 
-Console.WriteLine($"Случайное число от {minValue} до {maxValue}: {number}");
+Console.Write("Введите скобочное выражение: ");
+string userInput = Console.ReadLine();
 
-for(int i = number; i <= maxThreeDigitNumber; i+= number)
+foreach(var symbol in userInput)
 {
-    if(i >= minThreeDigitNumber)
+    if(symbol == openBracket)
     {
-        numberOfMultiplies++;
-        Console.WriteLine(i);
+        bracketCounter++;
+        
+        if(bracketCounter > maxBracketDepth)
+        {
+            maxBracketDepth = bracketCounter;
+        }
+    }
+    else if(symbol == closeBracket)
+    {
+        bracketCounter--;
+    }
+    else
+    {
+        isCorrect = false;
+        break;
     }
 }
 
-Console.WriteLine($"Количество чисел, кратных {number}: {numberOfMultiplies}");
+if(bracketCounter == 0 && isCorrect == true)
+{
+    Console.WriteLine(correctResultMessage);
+    Console.WriteLine($"Максимальная глубина вложенности: {maxBracketDepth}");
+}
+else
+{
+    Console.WriteLine(incorrectResultMessage);
+}
