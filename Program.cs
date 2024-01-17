@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-const string useRashamonSpellCommand = "1";
+﻿const string useRashamonSpellCommand = "1";
 const string useHuganzakuraSpellCommand = "2";
 const string useHealingSpellCommand = "3";
 const string useDamageSpellCommand = "4";
