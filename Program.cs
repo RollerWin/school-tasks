@@ -1,77 +1,51 @@
-﻿const string CommandUseRashamonSpell = "1";
-const string CommandUseHuganzakuraSpell = "2";
-const string CommandUseHealingSpell = "3";
-const string CommandUseDamageSpell = "4";
+﻿Random number = new Random();
+int minArrayValue = 2;
+int maxArrayValue = 10;
 
-double userHealth = 100.0;
-double rashamonSpellCoefficientDamage = 0.9;
-double huganzakuraSpellDamage = 35.0;
-double healingSpellCoefficient = 1.25;
-double damageSpell = 15.0;
+int minCellValue = 1;
+int maxCellValue = 100;
 
-double enemyHealth = 200.0;
-double enemyDamage = 20.0;
+int indexRowSum = 1;
+int indexColumnProduct = 0;
 
-bool isPhantomSummoned = false;
-bool canUserBeAttacked = true;
+int rowSum = 0;
+int columnProduct = 1;
 
-int numberOfDecimalPlaces = 2;
+int arrayRowLength = number.Next(minArrayValue, maxArrayValue + 1);
+int arrayColumnLength = number.Next(minArrayValue, maxArrayValue + 1);
 
-while(userHealth > 0.0 && enemyHealth > 0.0)
+int[,] array = new int[arrayColumnLength, arrayRowLength];
+
+for(int i = 0; i < arrayColumnLength; i++)
 {
-    canUserBeAttacked = true;
-
-    Console.Clear();
-    Console.WriteLine($"\tАрена!\nЗдоровье игрока: {userHealth}\nЗдоровье врага: {enemyHealth}");
-    Console.WriteLine($"Выберите действие:\n{CommandUseRashamonSpell} - Призвать духа-помощника\n{CommandUseHuganzakuraSpell} - Нанести урон духом\n{CommandUseHealingSpell} - Восстановить здоровье\n{CommandUseDamageSpell} - Нанести урон самому");
-
-    switch(Console.ReadLine())
+    for(int j = 0; j < arrayRowLength; j++)
     {
-        case CommandUseRashamonSpell:
-            isPhantomSummoned = true;
-            userHealth = Math.Round(userHealth * rashamonSpellCoefficientDamage, numberOfDecimalPlaces);
-        break;
-
-        case CommandUseHuganzakuraSpell:
-            if(isPhantomSummoned == true)
-            {
-                enemyHealth -= huganzakuraSpellDamage;
-            }
-            else
-            {
-                Console.WriteLine("Вы не призвали духа!");
-            }
-        break;
-
-        case CommandUseHealingSpell:
-            canUserBeAttacked = false;
-            userHealth = Math.Round(userHealth * healingSpellCoefficient, numberOfDecimalPlaces);
-        break;
-
-        case CommandUseDamageSpell:
-            enemyHealth -= damageSpell;
-        break;
-
-        default:
-            Console.WriteLine("Неверная команда!");
-        break;
-    }
-
-    if(canUserBeAttacked == true)
-    {
-        userHealth = Math.Round(userHealth - enemyDamage, numberOfDecimalPlaces);
+        array[i,j] = number.Next(minCellValue, maxCellValue);
     }
 }
 
-if(userHealth <= 0 && enemyHealth <= 0)
+Console.WriteLine($"Исходная матрица размерности {arrayColumnLength} на {arrayRowLength}");
+
+for(int i = 0; i < arrayColumnLength; i++)
 {
-    Console.WriteLine("Ничья!");
+    for(int j = 0; j < arrayRowLength; j++)
+    {
+        Console.Write(array[i,j] + " ");
+    }
+
+    Console.WriteLine();
 }
-else if(userHealth > 0)
+
+for(int i = 0; i < arrayRowLength; i++)
 {
-    Console.WriteLine("Игрок победил!");
+    rowSum += array[indexRowSum, i];
 }
-else
+
+Console.WriteLine($"Сумма чисел ряда {indexRowSum + 1}: {rowSum}");
+
+for(int i = 0; i < arrayColumnLength; i++)
 {
-    Console.WriteLine("Враг победил!");
+    columnProduct *= array[i, indexColumnProduct];
 }
+
+Console.WriteLine($"Произведение чисел ряда {indexColumnProduct + 1}: {columnProduct}");
