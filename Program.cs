@@ -1,47 +1,62 @@
 ﻿Random random = new Random();
-int arrayDimension = 10;
+int arrayDimension = 0;
+
+int firstIndex = 0;
+int secondIndex = 1;
+int lastIndex = arrayDimension - 1;
+int penultimateIndex = lastIndex - 1;
 
 int minCellValue = 1;
-int maxCellValue = 100;
+int maxCellValue = 10;
 
-int replaceableNumber = 0;
+int[] array = new int[arrayDimension];
 
-int maxArrayValue = minCellValue;
-
-int[,] array = new int[arrayDimension, arrayDimension];
-
-Console.WriteLine($"Исходная матрица размерности {arrayDimension} на {arrayDimension}");
+Console.WriteLine("Исходная матрица:");
 
 for(int i = 0; i < arrayDimension; i++)
 {
-    for(int j = 0; j < arrayDimension; j++)
-    {
-        array[i,j] = random.Next(minCellValue, maxCellValue + 1);
-        Console.Write(array[i,j] + " ");
-
-        if(array[i,j] > maxArrayValue)
-        {
-           maxArrayValue = array[i,j];
-        }
-    }
-
-    Console.WriteLine();
+    array[i] = random.Next(minCellValue, maxCellValue + 1);
+    Console.Write(array[i] + " ");
 }
 
-Console.WriteLine($"Максимальный элемент в матрице: {maxArrayValue}");
-Console.WriteLine("Итоговый вариант матрицы: ");
+Console.Write("\nСписок локальных максимумов: ");
 
-for(int i = 0; i < arrayDimension; i++)
+if(array.Length == 1)
 {
-    for(int j = 0; j < arrayDimension; j++)
+    Console.Write(array[firstIndex] + " ");
+}
+else if(array.Length == 2)
+{
+    if(array[firstIndex] > array[lastIndex])
     {
-        if(array[i,j] == maxArrayValue)
-        {
-            array[i,j] = replaceableNumber;
-        }
-
-        Console.Write(array[i,j] + " ");
+        Console.Write(array[firstIndex] + " ");
+    }
+    else
+    {
+        Console.Write(array[lastIndex] + " ");
+    }
+}
+else if(array.Length > 2)
+{
+    if(array[firstIndex] > array[secondIndex])
+    {
+        Console.Write(array[firstIndex] + " ");
     }
 
-    Console.WriteLine();
+    for(int i = secondIndex; i < lastIndex; i++)
+    {
+        if(array[i] > array[i-1] && array[i] > array[i+1])
+        {
+            Console.Write(array[i] + " ");
+        }
+    }
+
+    if(array[lastIndex] > array[penultimateIndex])
+    {
+        Console.Write(array[lastIndex] + " ");
+    }
+}
+else
+{
+    Console.WriteLine("Размерность нулевая или неверно задана!");
 }
