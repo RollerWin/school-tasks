@@ -1,51 +1,45 @@
 ﻿Random number = new Random();
-int minArrayValue = 2;
-int maxArrayValue = 10;
+int arrayDimension = 10;
 
 int minCellValue = 1;
 int maxCellValue = 100;
 
-int rowIndex = 1;
-int columnIndex = 0;
+int maxArrayValue = minCellValue;
 
-int rowSum = 0;
-int columnProduct = 1;
+int[,] array = new int[arrayDimension, arrayDimension];
 
-int arrayRowLength = number.Next(minArrayValue, maxArrayValue + 1);
-int arrayColumnLength = number.Next(minArrayValue, maxArrayValue + 1);
+Console.WriteLine($"Исходная матрица размерности {arrayDimension} на {arrayDimension}");
 
-int[,] array = new int[arrayColumnLength, arrayRowLength];
-
-for(int i = 0; i < arrayColumnLength; i++)
+for(int i = 0; i < arrayDimension; i++)
 {
-    for(int j = 0; j < arrayRowLength; j++)
+    for(int j = 0; j < arrayDimension; j++)
     {
-        array[i,j] = number.Next(minCellValue, maxCellValue);
-    }
-}
-
-Console.WriteLine($"Исходная матрица размерности {arrayColumnLength} на {arrayRowLength}");
-
-for(int i = 0; i < arrayColumnLength; i++)
-{
-    for(int j = 0; j < arrayRowLength; j++)
-    {
+        array[i,j] = number.Next(minCellValue, maxCellValue + 1);
         Console.Write(array[i,j] + " ");
+
+        if(array[i,j] > maxArrayValue)
+        {
+           maxArrayValue = array[i,j];
+        }
     }
 
     Console.WriteLine();
 }
 
-for(int i = 0; i < arrayRowLength; i++)
+Console.WriteLine($"Максимальный элемент в матрице: {maxArrayValue}");
+Console.WriteLine("Итоговый вариант матрицы: ");
+
+for(int i = 0; i < arrayDimension; i++)
 {
-    rowSum += array[rowIndex, i];
+    for(int j = 0; j < arrayDimension; j++)
+    {
+        if(array[i,j] == maxArrayValue)
+        {
+            array[i,j] = 0;
+        }
+
+        Console.Write(array[i,j] + " ");
+    }
+
+    Console.WriteLine();
 }
-
-Console.WriteLine($"Сумма чисел ряда {rowIndex + 1}: {rowSum}");
-
-for(int i = 0; i < arrayColumnLength; i++)
-{
-    columnProduct *= array[i, columnIndex];
-}
-
-Console.WriteLine($"Произведение чисел ряда {columnIndex + 1}: {columnProduct}");
