@@ -5,8 +5,8 @@ int maxArrayValue = 10;
 int minCellValue = 1;
 int maxCellValue = 100;
 
-int indexRowSum = 1;
-int indexColumnProduct = 0;
+int rowIndex = 1;
+int columnIndex = 0;
 
 int rowSum = 0;
 int columnProduct = 1;
@@ -38,14 +38,14 @@ for(int i = 0; i < arrayColumnLength; i++)
 
 for(int i = 0; i < arrayRowLength; i++)
 {
-    rowSum += array[indexRowSum, i];
+    rowSum += array[rowIndex, i];
 }
 
-Console.WriteLine($"Сумма чисел ряда {indexRowSum + 1}: {rowSum}");
+Console.WriteLine($"Сумма чисел ряда {rowIndex + 1}: {rowSum}");
 
 for(int i = 0; i < arrayColumnLength; i++)
 {
-    columnProduct *= array[i, indexColumnProduct];
+    columnProduct *= array[i, columnIndex];
 }
 
-Console.WriteLine($"Произведение чисел ряда {indexColumnProduct + 1}: {columnProduct}");
+Console.WriteLine($"Произведение чисел ряда {columnIndex + 1}: {columnProduct}");
