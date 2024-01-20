@@ -1,14 +1,44 @@
-﻿Random random = new Random();
-int arrayDimension = 30;
+﻿int firstDimension = 0;
+int[] array = new int[firstDimension];
 
-int minCellValue = 1;
-int maxCellValue = 10;
+string userInput = "";
+string commandExit = "exit";
+string commandSum = "sum";
 
-int maxArrayValue = minCellValue;
+bool isWork = true;
 
-int[] array = new int[arrayDimension];
+int arraySum = 0;
 
-for(int i = 0; i < arrayDimension; i++)
+while(isWork == true)
 {
-    array[i] = random.Next(minCellValue, maxCellValue + 1);
+    Console.WriteLine($"Введите число либо\n{commandExit} для выхода из программы, либо\n{commandSum} для суммы ранее введённых чисел");
+
+    userInput = Console.ReadLine();
+
+    if(userInput == commandExit)
+    {
+        isWork = false;       
+    }
+    else if(userInput == commandSum)
+    {
+        for(int i = 0; i < array.Length; i++)
+        {
+            arraySum += array[i];
+        }
+
+        Console.WriteLine($"Сумма ранее введённых чисел: {arraySum}");
+        arraySum = 0;
+    }
+    else
+    {
+        int[] newArray = new int[array.Length + 1];
+
+        for(int i = 0; i < array.Length; i++)
+        {
+            newArray[i] = array[i];
+        }
+        
+        array = newArray;
+        array[array.Length - 1] = Convert.ToInt32(userInput);
+    }
 }
