@@ -1,47 +1,14 @@
 ﻿Random random = new Random();
-int arrayDimension = 10;
+int arrayDimension = 30;
 
 int minCellValue = 1;
-int maxCellValue = 100;
-
-int replaceableNumber = 0;
+int maxCellValue = 10;
 
 int maxArrayValue = minCellValue;
 
-int[,] array = new int[arrayDimension, arrayDimension];
-
-Console.WriteLine($"Исходная матрица размерности {arrayDimension} на {arrayDimension}");
+int[] array = new int[arrayDimension];
 
 for(int i = 0; i < arrayDimension; i++)
 {
-    for(int j = 0; j < arrayDimension; j++)
-    {
-        array[i,j] = random.Next(minCellValue, maxCellValue + 1);
-        Console.Write(array[i,j] + " ");
-
-        if(array[i,j] > maxArrayValue)
-        {
-           maxArrayValue = array[i,j];
-        }
-    }
-
-    Console.WriteLine();
-}
-
-Console.WriteLine($"Максимальный элемент в матрице: {maxArrayValue}");
-Console.WriteLine("Итоговый вариант матрицы: ");
-
-for(int i = 0; i < arrayDimension; i++)
-{
-    for(int j = 0; j < arrayDimension; j++)
-    {
-        if(array[i,j] == maxArrayValue)
-        {
-            array[i,j] = replaceableNumber;
-        }
-
-        Console.Write(array[i,j] + " ");
-    }
-
-    Console.WriteLine();
+    array[i] = random.Next(minCellValue, maxCellValue + 1);
 }
