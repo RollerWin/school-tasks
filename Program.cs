@@ -1,5 +1,5 @@
 ﻿Random random = new Random();
-int arrayDimension = 0;
+int arrayDimension = 30;
 
 int firstIndex = 0;
 int secondIndex = 1;
@@ -21,33 +21,29 @@ for(int i = 0; i < arrayDimension; i++)
 
 Console.Write("\nСписок локальных максимумов: ");
 
-if(array.Length == 1)
+if(array.Length == 0)
+{
+    Console.WriteLine("Размерность нулевая или неверно задана!");
+}
+else if(array.Length == 1)
 {
     Console.Write(array[firstIndex] + " ");
 }
-else if(array.Length == 2)
-{
-    if(array[firstIndex] > array[lastIndex])
-    {
-        Console.Write(array[firstIndex] + " ");
-    }
-    else
-    {
-        Console.Write(array[lastIndex] + " ");
-    }
-}
-else if(array.Length > 2)
+else
 {
     if(array[firstIndex] > array[secondIndex])
     {
         Console.Write(array[firstIndex] + " ");
     }
 
-    for(int i = secondIndex; i < lastIndex; i++)
+    if(array.Length > 2)
     {
-        if(array[i] > array[i-1] && array[i] > array[i+1])
+        for(int i = secondIndex; i < lastIndex; i++)
         {
-            Console.Write(array[i] + " ");
+            if(array[i] > array[i-1] && array[i] > array[i+1])
+            {
+                Console.Write(array[i] + " ");
+            }
         }
     }
 
@@ -55,8 +51,4 @@ else if(array.Length > 2)
     {
         Console.Write(array[lastIndex] + " ");
     }
-}
-else
-{
-    Console.WriteLine("Размерность нулевая или неверно задана!");
 }
