@@ -1,54 +1,60 @@
 ﻿Random random = new Random();
 int arrayDimension = 30;
-
-int firstIndex = 0;
-int secondIndex = 1;
-int lastIndex = arrayDimension - 1;
-int penultimateIndex = lastIndex - 1;
-
 int minCellValue = 1;
-int maxCellValue = 10;
+int maxCellValue = 5;
 
 int[] array = new int[arrayDimension];
-
-Console.WriteLine("Исходная матрица:");
 
 for(int i = 0; i < arrayDimension; i++)
 {
     array[i] = random.Next(minCellValue, maxCellValue + 1);
+}
+
+int firstIndex = 0;
+int mostRepeatedNumber = array[firstIndex];
+int currentNumberOfRepetitions = 1;
+int maxNumberOfRepetitions = 1;
+bool isExist = false;
+
+Console.WriteLine($"Исходный массив размерности {arrayDimension}: ");
+
+for(int i = 0; i < arrayDimension; i++)
+{
     Console.Write(array[i] + " ");
 }
 
-Console.Write("\nСписок локальных максимумов: ");
+Console.WriteLine();
 
-if(array.Length == 0)
+for(int i = 1; i < arrayDimension; i++)
 {
-    Console.WriteLine("Размерность нулевая или неверно задана!");
+    if(array[i] == array[i - 1])
+    {
+        currentNumberOfRepetitions++;
+        isExist = true;
+    }
+    else if(array[i] != array[i - 1] && isExist == true)
+    {
+        if(currentNumberOfRepetitions > maxNumberOfRepetitions)
+        {
+            maxNumberOfRepetitions = currentNumberOfRepetitions;
+            mostRepeatedNumber = array[i - 1];
+        }
+
+        currentNumberOfRepetitions = 1;
+    }
 }
-else if(array.Length == 1)
+
+if (currentNumberOfRepetitions > maxNumberOfRepetitions)
 {
-    Console.Write(array[firstIndex] + " ");
+    mostRepeatedNumber = array[arrayDimension - 1];
+    maxNumberOfRepetitions = currentNumberOfRepetitions;
+}
+
+if(isExist == true)
+{
+    Console.WriteLine($"Больше всего повторялось число {mostRepeatedNumber}\nОно повторялось {maxNumberOfRepetitions} раз!");
 }
 else
 {
-    if(array[firstIndex] > array[secondIndex])
-    {
-        Console.Write(array[firstIndex] + " ");
-    }
-
-    if(array.Length > 2)
-    {
-        for(int i = secondIndex; i < lastIndex; i++)
-        {
-            if(array[i] > array[i-1] && array[i] > array[i+1])
-            {
-                Console.Write(array[i] + " ");
-            }
-        }
-    }
-
-    if(array[lastIndex] > array[penultimateIndex])
-    {
-        Console.Write(array[lastIndex] + " ");
-    }
+    Console.WriteLine("В этом массиве совсем нет повторяющихся чисел :(");
 }
