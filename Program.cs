@@ -32,7 +32,7 @@ for(int i = 1; i < arrayDimension; i++)
         currentNumberOfRepetitions++;
         isExist = true;
     }
-    else if(array[i] != array[i - 1] && isExist == true)
+    else
     {
         if(currentNumberOfRepetitions > maxNumberOfRepetitions)
         {
