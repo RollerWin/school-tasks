@@ -1,7 +1,8 @@
 ﻿Random random = new Random();
-int arrayDimension = 30;
+int arrayDimension = 10;
 int minCellValue = 1;
-int maxCellValue = 5;
+int maxCellValue = 100;
+int tempCell;
 
 int[] array = new int[arrayDimension];
 
@@ -9,12 +10,6 @@ for(int i = 0; i < arrayDimension; i++)
 {
     array[i] = random.Next(minCellValue, maxCellValue + 1);
 }
-
-int firstIndex = 0;
-int mostRepeatedNumber = array[firstIndex];
-int currentNumberOfRepetitions = 1;
-int maxNumberOfRepetitions = 1;
-bool isExist = false;
 
 Console.WriteLine($"Исходный массив размерности {arrayDimension}: ");
 
@@ -25,36 +20,22 @@ for(int i = 0; i < arrayDimension; i++)
 
 Console.WriteLine();
 
-for(int i = 1; i < arrayDimension; i++)
+for(int i = arrayDimension - 1; i > 0; i--)
 {
-    if(array[i] == array[i - 1])
+    for(int j = 0; j < i; j++)
     {
-        currentNumberOfRepetitions++;
-        isExist = true;
-    }
-    else
-    {
-        if(currentNumberOfRepetitions > maxNumberOfRepetitions)
+        if(array[j] > array[j+1])
         {
-            maxNumberOfRepetitions = currentNumberOfRepetitions;
-            mostRepeatedNumber = array[i - 1];
+            tempCell = array[j];
+            array[j] = array[j+1];
+            array[j+1] = tempCell;
         }
-
-        currentNumberOfRepetitions = 1;
     }
 }
 
-if (currentNumberOfRepetitions > maxNumberOfRepetitions)
-{
-    mostRepeatedNumber = array[arrayDimension - 1];
-    maxNumberOfRepetitions = currentNumberOfRepetitions;
-}
+Console.WriteLine("Отсортированный массив пузырьковым методом:");
 
-if(isExist == true)
+for(int i = 0; i < arrayDimension; i++)
 {
-    Console.WriteLine($"Больше всего повторялось число {mostRepeatedNumber}\nОно повторялось {maxNumberOfRepetitions} раз!");
-}
-else
-{
-    Console.WriteLine("В этом массиве совсем нет повторяющихся чисел :(");
+    Console.Write(array[i] + " ");
 }
