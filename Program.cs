@@ -1,44 +1,52 @@
-﻿int firstDimension = 0;
-int[] array = new int[firstDimension];
+﻿Random random = new Random();
+int arrayDimension = 30;
+int minCellValue = 1;
+int maxCellValue = 5;
 
-string userInput = "";
-string commandExit = "exit";
-string commandSum = "sum";
+int[] array = new int[arrayDimension];
 
-bool isWork = true;
-
-int arraySum = 0;
-
-while(isWork == true)
+for(int i = 0; i < arrayDimension; i++)
 {
-    Console.WriteLine($"Введите число либо\n{commandExit} для выхода из программы, либо\n{commandSum} для суммы ранее введённых чисел");
+    array[i] = random.Next(minCellValue, maxCellValue + 1);
+}
 
-    userInput = Console.ReadLine();
+int firstIndex = 0;
+int mostRepeatedNumber = array[firstIndex];
+int currentNumberOfRepetitions = 1;
+int maxNumberOfRepetitions = 1;
 
-    if(userInput == commandExit)
+Console.WriteLine($"Исходный массив размерности {arrayDimension}: ");
+
+for(int i = 0; i < arrayDimension; i++)
+{
+    Console.Write(array[i] + " ");
+}
+
+Console.WriteLine();
+
+for(int i = 1; i < arrayDimension; i++)
+{
+    if(array[i] == array[i - 1])
     {
-        isWork = false;       
-    }
-    else if(userInput == commandSum)
-    {
-        for(int i = 0; i < array.Length; i++)
+        currentNumberOfRepetitions++;
+
+        if(currentNumberOfRepetitions > maxNumberOfRepetitions)
         {
-            arraySum += array[i];
+            maxNumberOfRepetitions = currentNumberOfRepetitions;
+            mostRepeatedNumber = array[i - 1];
         }
-
-        Console.WriteLine($"Сумма ранее введённых чисел: {arraySum}");
-        arraySum = 0;
     }
     else
     {
-        int[] newArray = new int[array.Length + 1];
-
-        for(int i = 0; i < array.Length; i++)
-        {
-            newArray[i] = array[i];
-        }
-        
-        array = newArray;
-        array[array.Length - 1] = Convert.ToInt32(userInput);
+        currentNumberOfRepetitions = 1;
     }
+}
+
+if(maxNumberOfRepetitions > 1)
+{
+    Console.WriteLine($"Больше всего повторялось число {mostRepeatedNumber}\nОно повторялось {maxNumberOfRepetitions} раз!");
+}
+else
+{
+    Console.WriteLine("В этом массиве совсем нет повторяющихся чисел :(");
 }
