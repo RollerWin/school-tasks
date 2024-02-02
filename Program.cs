@@ -1,72 +1,196 @@
-﻿Console.Write("Введите количество элементов в массиве: ");
-string userInput = Console.ReadLine();
-
-int arrayDimension;
-
-while(int.TryParse(userInput, out arrayDimension) == false)
+﻿class Program
 {
-    Console.Clear();
-    Console.WriteLine("Неверно! Вам нужно ввести число!");
-    userInput = Console.ReadLine();
-}
-
-int[] array = new int[arrayDimension];
-
-for(int i = 0; i < arrayDimension; i++)
-{
-    array[i] = i + 1;
-}
-
-string commandRightShift = "->";
-string commanLeftShift = "<-";
-string commandExit = "esc";
-bool isRun = true;
-int tempCell;
-int firstIndex = 0;
-
-while(isRun)
-{
-    Console.Clear();
-    Console.WriteLine("Исходный массив: ");
-
-    for(int i = 0; i < arrayDimension; i++)
+    const string commandAddEmployee = "add";
+    const string commandShowEmployees = "show";
+    const string commandDeleteEmployee = "delete";
+    const string commandSearchEmplyee = "search";
+    const string commandExit = "exit";
+    
+    static void Main(string[] args)
     {
-        Console.Write(array[i] + " ");
+        int defaultSize = 0;
+        string[] employeeNames = new string[defaultSize];
+        string[] employeePositions = new string[defaultSize];
+        bool isRun = true;
+
+        while(isRun)
+        {
+            ShowMenu();
+            HandleUserInput(ref employeeNames, ref employeePositions, ref isRun);
+            Console.ReadKey();
+            Console.Clear();
+        }
     }
 
-    Console.WriteLine($"Куда вы хотите сдвинуть массив?\n{commanLeftShift} - сдвиг значений массива влево\n{commandRightShift} - сдвиг значений массива вправо\n{commandExit} - выход из программы");
-    ConsoleKeyInfo userController = Console.ReadKey();
-
-    switch(userController.Key)
+    static void HandleUserInput(ref string[] employeeNames, ref string[] employeePositions, ref bool isRun)
     {
-        case ConsoleKey.LeftArrow:
-            tempCell = array[firstIndex];
+        string userInput = Console.ReadLine(); 
+        
+        switch(userInput)
+        {
+            case commandAddEmployee:
+                Console.WriteLine("Введите ФИО сотрудника: ");
+                userInput = Console.ReadLine();
+                employeeNames = FillArray(employeeNames, userInput);
 
-            for(int i = 1; i < arrayDimension; i++)
+                Console.WriteLine("Введите должность сотрудника: ");
+                userInput = Console.ReadLine();
+                employeePositions = FillArray(employeePositions, userInput);
+            break;
+
+            case commandShowEmployees:
+                Console.WriteLine("Все текущие сотрудники:");
+                ShowEmployees(employeeNames, employeePositions);
+            break;
+
+            case commandSearchEmplyee:
+                Console.WriteLine("Введите Фамилию сотрудника:");
+                userInput = Console.ReadLine();
+                SearchEmployee(employeeNames, userInput);
+            break;
+
+            case commandDeleteEmployee:
+                Console.WriteLine("Укажите индекс сотрудника или фио целиком");
+                userInput = Console.ReadLine();
+                DeleteEmployee(ref employeeNames, ref employeePositions, userInput);
+            break;
+
+            case commandExit:
+                isRun = false;
+            break;
+
+            default:
+                Console.WriteLine("Неверная команда!");
+            break;
+        }
+    } 
+
+    static void ShowMenu()
+    {
+        Console.WriteLine("<---Консоль управления персоналом--->");
+        Console.WriteLine($"{commandAddEmployee} - Добавить нового сотрудника\n" +
+                        $"{commandShowEmployees} - Показать всех текущих сотрудников\n" +
+                        $"{commandDeleteEmployee} - Удалить сотрудника\n" +
+                        $"{commandSearchEmplyee} - Найти сотрудника по фамилии\n" +
+                        $"{commandExit} - Выход");
+    }
+
+    static string[] FillArray(string[] array, string userInput)
+    {
+        string[] newArray = new string[array.Length + 1];
+
+        CopyArrayToBigger(newArray, array);
+
+        newArray[newArray.Length - 1] = userInput;
+        array = newArray;
+        return array;
+    }
+
+    static void CopyArrayToBigger(string[] newArray, string[] array)
+    {
+        for(int i = 0; i < array.Length; i++)
+        {
+            newArray[i] = array[i];
+        }
+    }
+
+    static void CopyArrayToSmaller(string[] newArray, string[] array, int skippedIndex)
+    {
+        int j = 0;
+
+        for(int i = 0; i < array.Length; i++)
+        {
+            if(i != skippedIndex)
             {
-                array[i - 1] = array[i];
+                newArray[j++] = array[i];
+            }
+        }
+    }
+
+    static void ShowEmployees(string[] names, string[]positions)
+    {
+        for(int i = 0; i < names.Length; i++)
+        {
+            Console.WriteLine($"{i+1}  {names[i]} - {positions[i]}");
+        }
+    }
+
+    static void DeleteEmployee(ref string[]names, ref string[]positions, string userInput)
+    {
+        int newLength = names.Length - 1;
+        
+        if(newLength >= 0)
+        {
+            int employeeIndex;
+
+            bool canCopy = false;
+
+            string[] newEmployeeNames = new string[newLength];
+            string[] newEmployeesPositions = new string[newLength];
+
+            if(int.TryParse(userInput, out employeeIndex))
+            {
+                if(--employeeIndex >= 0)
+                {
+                    canCopy = true;
+                }
+                else
+                {
+                    Console.WriteLine("Неверно задан индекс!");
+                }
+            }
+            else
+            {
+                for(int i = 0; i < names.Length; i++)
+                {
+                    if(names[i] == userInput)
+                    {
+                        employeeIndex = i;
+                        Console.WriteLine($"Найден сотрудник под индексом {employeeIndex + 1}");
+                    }
+                }
+
+                canCopy = true;
             }
 
-            array[arrayDimension - 1] = tempCell;
-        break;
-
-        case ConsoleKey.RightArrow:
-            tempCell = array[arrayDimension - 1];
-
-            for(int i = arrayDimension - 1; i > 0; i--)
+            if(canCopy == true)
             {
-                array[i] = array[i - 1];
+                CopyArrayToSmaller(newEmployeeNames, names, employeeIndex);
+                CopyArrayToSmaller(newEmployeesPositions, positions, employeeIndex);
+                names = newEmployeeNames;
+                positions = newEmployeesPositions;
             }
+        }
+        else
+        {
+            Console.WriteLine("База пуста! Удалить невозможно!");
+        }
+    }
 
-            array[firstIndex] = tempCell;
-        break;
+    static void SearchEmployee(string[] names, string lastName)
+    {
+        bool isFound = false;
 
-        case ConsoleKey.Escape:
-            isRun = false;
-        break;
+        for(int i = 0; i < names.Length; i++)
+        {
+            if(lastName.ToLower() == ExtractLastName(names[i]).ToLower())
+            {
+                Console.WriteLine(names[i]);
+                isFound = true;
+            }
+        }
 
-        default:
-        Console.WriteLine("Неверная команда!");
-        break;
+        if(isFound == false)
+        {
+            Console.WriteLine($"Сотрудник с фамилией {lastName} не найден!");
+        }
+    }
+
+    static string ExtractLastName(string employeeName)
+    {
+        int firstIndex = 0;
+        int firstSpaceBetweenNames = employeeName.IndexOf(' ');
+        string employeeLastName = employeeName.Substring(firstIndex, firstSpaceBetweenNames);
+        return employeeLastName;
     }
 }
