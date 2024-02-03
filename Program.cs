@@ -121,7 +121,9 @@
 
             if(int.TryParse(userInput, out employeeIndex))
             {
-                if(--employeeIndex >= 0)
+                employeeIndex -= 1;
+
+                if(employeeIndex >= 0 && employeeIndex < names.Length)
                 {
                     names = DeleteElementByIndex(names, employeeIndex);
                     positions = DeleteElementByIndex(positions, employeeIndex);
