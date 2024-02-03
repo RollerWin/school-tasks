@@ -2,6 +2,12 @@
 {   
     static void Main(string[] args)
     {
+        const string CommandAddEmployee = "add";
+        const string CommandShowEmployees = "show";
+        const string CommandDeleteEmployee = "delete";
+        const string CommandSearchEmplyee = "search";
+        const string CommandExit = "exit";
+
         int defaultSize = 0;
         string[] employeeNames = new string[defaultSize];
         string[] employeePositions = new string[defaultSize];
@@ -9,97 +15,87 @@
 
         while(isRun)
         {
-            HandleUserInput(ref employeeNames, ref employeePositions, ref isRun);
+            Console.WriteLine("<---Консоль управления персоналом--->");
+            Console.WriteLine($"{CommandAddEmployee} - Добавить нового сотрудника\n" +
+                            $"{CommandShowEmployees} - Показать всех текущих сотрудников\n" +
+                            $"{CommandDeleteEmployee} - Удалить сотрудника\n" +
+                            $"{CommandSearchEmplyee} - Найти сотрудника по фамилии\n" +
+                            $"{CommandExit} - Выход");
+
+            string userInput = Console.ReadLine(); 
+            
+            switch(userInput)
+            {
+                case CommandAddEmployee:
+                    AddEmployee(ref employeeNames, ref employeePositions);
+                break;
+
+                case CommandShowEmployees:
+                    ShowEmployees(employeeNames, employeePositions);
+                break;
+
+                case CommandSearchEmplyee:
+                    SearchEmployee(employeeNames, employeePositions);
+                break;
+
+                case CommandDeleteEmployee:
+                    DeleteEmployee(ref employeeNames, ref employeePositions);
+                break;
+
+                case CommandExit:
+                    isRun = false;
+                break;
+
+                default:
+                    Console.WriteLine("Неверная команда!");
+                break;
+            }
+            
             Console.ReadKey();
             Console.Clear();
         }
     }
 
-    static void HandleUserInput(ref string[] employeeNames, ref string[] employeePositions, ref bool isRun)
+    static string[] AddData(string[] array, string userInput)
     {
-        const string CommandAddEmployee = "add";
-        const string CommandShowEmployees = "show";
-        const string CommandDeleteEmployee = "delete";
-        const string CommandSearchEmplyee = "search";
-        const string CommandExit = "exit";
-
-        Console.WriteLine("<---Консоль управления персоналом--->");
-        Console.WriteLine($"{CommandAddEmployee} - Добавить нового сотрудника\n" +
-                        $"{CommandShowEmployees} - Показать всех текущих сотрудников\n" +
-                        $"{CommandDeleteEmployee} - Удалить сотрудника\n" +
-                        $"{CommandSearchEmplyee} - Найти сотрудника по фамилии\n" +
-                        $"{CommandExit} - Выход");
-
-        string userInput = Console.ReadLine(); 
-        
-        switch(userInput)
-        {
-            case CommandAddEmployee:
-                AddEmployee(ref employeeNames, ref employeePositions);
-            break;
-
-            case CommandShowEmployees:
-                ShowEmployees(employeeNames, employeePositions);
-            break;
-
-            case CommandSearchEmplyee:
-                SearchEmployee(employeeNames, employeePositions);
-            break;
-
-            case CommandDeleteEmployee:
-                DeleteEmployee(ref employeeNames, ref employeePositions);
-            break;
-
-            case CommandExit:
-                isRun = false;
-            break;
-
-            default:
-                Console.WriteLine("Неверная команда!");
-            break;
-        }
-    } 
-
-    static string[] FillArray(string[] array, string userInput)
-    {
-        string[] newArray = new string[array.Length + 1];
+        string[] tempArray = new string[array.Length + 1];
 
         for(int i = 0; i < array.Length; i++)
         {
-            newArray[i] = array[i];
+            tempArray[i] = array[i];
         }
 
-        newArray[newArray.Length - 1] = userInput;
-        array = newArray;
+        tempArray[tempArray.Length - 1] = userInput;
+        array = tempArray;
         return array;
     }
 
     static string[] DeleteElementByIndex(string[] array, int skippedIndex)
     {
-        string[] newArray = new string[array.Length - 1];
+        string[] tempArray = new string[array.Length - 1];
 
         for(int i = 0; i < skippedIndex; i++)
         {
-            newArray[i] = array[i];
+            tempArray[i] = array[i];
         }
 
         for(int i = skippedIndex + 1; i < array.Length; i++)
         {
-            newArray[i - 1] = array[i];
+            tempArray[i - 1] = array[i];
         }
 
-        return newArray;
+        return tempArray;
     }
 
     static void AddEmployee(ref string[]names, ref string[]positions)
     {
         Console.WriteLine("Введите ФИО сотрудника: ");
         string userInput = Console.ReadLine();
-        names = FillArray(names, userInput);
+        names = AddData(names, userInput);
 
         Console.WriteLine("Введите должность сотрудника: ");
         userInput = Console.ReadLine();
-        positions = FillArray(positions, userInput);
+        positions = AddData(positions, userInput);
     }
 
     static void ShowEmployees(string[] names, string[]positions)
@@ -116,19 +112,19 @@
     {
         int newLength = names.Length - 1;
         
-        Console.WriteLine("Укажите индекс сотрудника или фио целиком");
+        Console.WriteLine("Укажите индекс сотрудника");
         string userInput = Console.ReadLine();
 
         if(newLength >= 0)
         {
             int employeeIndex;
-            bool canCopy = false;
 
             if(int.TryParse(userInput, out employeeIndex))
             {
                 if(--employeeIndex >= 0)
                 {
-                    canCopy = true;
+                    names = DeleteElementByIndex(names, employeeIndex);
+                    positions = DeleteElementByIndex(positions, employeeIndex);
                 }
                 else
                 {
@@ -137,25 +133,7 @@
             }
             else
             {
-                for(int i = 0; i < names.Length; i++)
-                {
-                    if(names[i] == userInput)
-                    {
-                        employeeIndex = i;
-                        Console.WriteLine($"Найден сотрудник под индексом {employeeIndex + 1}");
-                        canCopy = true;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Сотрудник с таким ФИО не найден!");
-                    }
-                }
-            }
-
-            if(canCopy == true)
-            {
-                names = DeleteElementByIndex(names, employeeIndex);
-                positions = DeleteElementByIndex(positions, employeeIndex);
+                Console.WriteLine("Необходимо указать целое число - индекс сотрудника");
             }
         }
         else
