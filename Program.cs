@@ -78,7 +78,7 @@
         return array;
     }
 
-    static string[] CopyArrayToSmaller(string[] array, int skippedIndex)
+    static string[] DeleteElementByIndex(string[] array, int skippedIndex)
     {
         string[] newArray = new string[array.Length - 1];
 
@@ -158,8 +158,8 @@
 
             if(canCopy == true)
             {
-                names = CopyArrayToSmaller(names, employeeIndex);
-                positions = CopyArrayToSmaller(positions, employeeIndex);
+                names = DeleteElementByIndex(names, employeeIndex);
+                positions = DeleteElementByIndex(positions, employeeIndex);
             }
         }
         else
