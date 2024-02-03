@@ -1,11 +1,5 @@
 ﻿class Program
 {   
-    const string CommandAddEmployee = "add";
-    const string CommandShowEmployees = "show";
-    const string CommandDeleteEmployee = "delete";
-    const string CommandSearchEmplyee = "search";
-    const string CommandExit = "exit";
-
     static void Main(string[] args)
     {
         int defaultSize = 0;
@@ -15,7 +9,6 @@
 
         while(isRun)
         {
-            ShowMenu();
             HandleUserInput(ref employeeNames, ref employeePositions, ref isRun);
             Console.ReadKey();
             Console.Clear();
@@ -24,6 +17,19 @@
 
     static void HandleUserInput(ref string[] employeeNames, ref string[] employeePositions, ref bool isRun)
     {
+        const string CommandAddEmployee = "add";
+        const string CommandShowEmployees = "show";
+        const string CommandDeleteEmployee = "delete";
+        const string CommandSearchEmplyee = "search";
+        const string CommandExit = "exit";
+
+        Console.WriteLine("<---Консоль управления персоналом--->");
+        Console.WriteLine($"{CommandAddEmployee} - Добавить нового сотрудника\n" +
+                        $"{CommandShowEmployees} - Показать всех текущих сотрудников\n" +
+                        $"{CommandDeleteEmployee} - Удалить сотрудника\n" +
+                        $"{CommandSearchEmplyee} - Найти сотрудника по фамилии\n" +
+                        $"{CommandExit} - Выход");
+
         string userInput = Console.ReadLine(); 
         
         switch(userInput)
@@ -53,16 +59,6 @@
             break;
         }
     } 
-
-    static void ShowMenu()
-    {
-        Console.WriteLine("<---Консоль управления персоналом--->");
-        Console.WriteLine($"{CommandAddEmployee} - Добавить нового сотрудника\n" +
-                        $"{CommandShowEmployees} - Показать всех текущих сотрудников\n" +
-                        $"{CommandDeleteEmployee} - Удалить сотрудника\n" +
-                        $"{CommandSearchEmplyee} - Найти сотрудника по фамилии\n" +
-                        $"{CommandExit} - Выход");
-    }
 
     static string[] FillArray(string[] array, string userInput)
     {
