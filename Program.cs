@@ -1,11 +1,11 @@
 ﻿class Program
-{
-    const string commandAddEmployee = "add";
-    const string commandShowEmployees = "show";
-    const string commandDeleteEmployee = "delete";
-    const string commandSearchEmplyee = "search";
-    const string commandExit = "exit";
-    
+{   
+    const string CommandAddEmployee = "add";
+    const string CommandShowEmployees = "show";
+    const string CommandDeleteEmployee = "delete";
+    const string CommandSearchEmplyee = "search";
+    const string CommandExit = "exit";
+
     static void Main(string[] args)
     {
         int defaultSize = 0;
@@ -28,34 +28,23 @@
         
         switch(userInput)
         {
-            case commandAddEmployee:
-                Console.WriteLine("Введите ФИО сотрудника: ");
-                userInput = Console.ReadLine();
-                employeeNames = FillArray(employeeNames, userInput);
-
-                Console.WriteLine("Введите должность сотрудника: ");
-                userInput = Console.ReadLine();
-                employeePositions = FillArray(employeePositions, userInput);
+            case CommandAddEmployee:
+                AddEmployee(ref employeeNames, ref employeePositions);
             break;
 
-            case commandShowEmployees:
-                Console.WriteLine("Все текущие сотрудники:");
+            case CommandShowEmployees:
                 ShowEmployees(employeeNames, employeePositions);
             break;
 
-            case commandSearchEmplyee:
-                Console.WriteLine("Введите Фамилию сотрудника:");
-                userInput = Console.ReadLine();
-                SearchEmployee(employeeNames, userInput);
+            case CommandSearchEmplyee:
+                SearchEmployee(employeeNames, employeePositions);
             break;
 
-            case commandDeleteEmployee:
-                Console.WriteLine("Укажите индекс сотрудника или фио целиком");
-                userInput = Console.ReadLine();
-                DeleteEmployee(ref employeeNames, ref employeePositions, userInput);
+            case CommandDeleteEmployee:
+                DeleteEmployee(ref employeeNames, ref employeePositions);
             break;
 
-            case commandExit:
+            case CommandExit:
                 isRun = false;
             break;
 
@@ -68,65 +57,76 @@
     static void ShowMenu()
     {
         Console.WriteLine("<---Консоль управления персоналом--->");
-        Console.WriteLine($"{commandAddEmployee} - Добавить нового сотрудника\n" +
-                        $"{commandShowEmployees} - Показать всех текущих сотрудников\n" +
-                        $"{commandDeleteEmployee} - Удалить сотрудника\n" +
-                        $"{commandSearchEmplyee} - Найти сотрудника по фамилии\n" +
-                        $"{commandExit} - Выход");
+        Console.WriteLine($"{CommandAddEmployee} - Добавить нового сотрудника\n" +
+                        $"{CommandShowEmployees} - Показать всех текущих сотрудников\n" +
+                        $"{CommandDeleteEmployee} - Удалить сотрудника\n" +
+                        $"{CommandSearchEmplyee} - Найти сотрудника по фамилии\n" +
+                        $"{CommandExit} - Выход");
     }
 
     static string[] FillArray(string[] array, string userInput)
     {
         string[] newArray = new string[array.Length + 1];
 
-        CopyArrayToBigger(newArray, array);
+        for(int i = 0; i < array.Length; i++)
+        {
+            newArray[i] = array[i];
+        }
 
         newArray[newArray.Length - 1] = userInput;
         array = newArray;
         return array;
     }
 
-    static void CopyArrayToBigger(string[] newArray, string[] array)
+    static string[] CopyArrayToSmaller(string[] array, int skippedIndex)
     {
-        for(int i = 0; i < array.Length; i++)
+        string[] newArray = new string[array.Length - 1];
+
+        for(int i = 0; i < skippedIndex; i++)
         {
             newArray[i] = array[i];
         }
+
+        for(int i = skippedIndex + 1; i < array.Length; i++)
+        {
+            newArray[i - 1] = array[i];
+        }
+
+        return newArray;
     }
 
-    static void CopyArrayToSmaller(string[] newArray, string[] array, int skippedIndex)
+    static void AddEmployee(ref string[]names, ref string[]positions)
     {
-        int j = 0;
+        Console.WriteLine("Введите ФИО сотрудника: ");
+        string userInput = Console.ReadLine();
+        names = FillArray(names, userInput);
 
-        for(int i = 0; i < array.Length; i++)
-        {
-            if(i != skippedIndex)
-            {
-                newArray[j++] = array[i];
-            }
-        }
+        Console.WriteLine("Введите должность сотрудника: ");
+        userInput = Console.ReadLine();
+        positions = FillArray(positions, userInput);
     }
 
     static void ShowEmployees(string[] names, string[]positions)
     {
+        Console.WriteLine("Все текущие сотрудники:");
+        
         for(int i = 0; i < names.Length; i++)
         {
             Console.WriteLine($"{i+1}  {names[i]} - {positions[i]}");
         }
     }
 
-    static void DeleteEmployee(ref string[]names, ref string[]positions, string userInput)
+    static void DeleteEmployee(ref string[]names, ref string[]positions)
     {
         int newLength = names.Length - 1;
         
+        Console.WriteLine("Укажите индекс сотрудника или фио целиком");
+        string userInput = Console.ReadLine();
+
         if(newLength >= 0)
         {
             int employeeIndex;
-
             bool canCopy = false;
-
-            string[] newEmployeeNames = new string[newLength];
-            string[] newEmployeesPositions = new string[newLength];
 
             if(int.TryParse(userInput, out employeeIndex))
             {
@@ -147,18 +147,19 @@
                     {
                         employeeIndex = i;
                         Console.WriteLine($"Найден сотрудник под индексом {employeeIndex + 1}");
+                        canCopy = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Сотрудник с таким ФИО не найден!");
                     }
                 }
-
-                canCopy = true;
             }
 
             if(canCopy == true)
             {
-                CopyArrayToSmaller(newEmployeeNames, names, employeeIndex);
-                CopyArrayToSmaller(newEmployeesPositions, positions, employeeIndex);
-                names = newEmployeeNames;
-                positions = newEmployeesPositions;
+                names = CopyArrayToSmaller(names, employeeIndex);
+                positions = CopyArrayToSmaller(positions, employeeIndex);
             }
         }
         else
@@ -167,15 +168,17 @@
         }
     }
 
-    static void SearchEmployee(string[] names, string lastName)
+    static void SearchEmployee(string[] names, string[] positions)
     {
         bool isFound = false;
+        Console.WriteLine("Введите Фамилию сотрудника:");
+        string lastName = Console.ReadLine();
 
         for(int i = 0; i < names.Length; i++)
         {
             if(lastName.ToLower() == ExtractLastName(names[i]).ToLower())
             {
-                Console.WriteLine(names[i]);
+                Console.WriteLine($"{i + 1} {names[i]} - {positions[i]}");
                 isFound = true;
             }
         }
@@ -189,7 +192,8 @@
     static string ExtractLastName(string employeeName)
     {
         int firstIndex = 0;
-        int firstSpaceBetweenNames = employeeName.IndexOf(' ');
+        char spaceSymbol = ' ';
+        int firstSpaceBetweenNames = employeeName.IndexOf(spaceSymbol);
         string employeeLastName = employeeName.Substring(firstIndex, firstSpaceBetweenNames);
         return employeeLastName;
     }
